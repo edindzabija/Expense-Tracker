@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import {
   Box,
@@ -11,29 +11,27 @@ import {
   Alert,
 } from '@chakra-ui/react'
 
-const Signup = () => {
+const Login = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
-  const passwordConfirmRef = useRef()
 
-  const { signup } = useAuth()
+  const { login } = useAuth()
 
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
+  
+  const history = useHistory()
 
   async function handleSubmit(e) {
     e.preventDefault()
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords don't match")
-    }
-
     try {
       setError('')
       setLoading(true)
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await login(emailRef.current.value, passwordRef.current.value)
+      history.push('/')
     } catch {
-      setError('Failed to create account!')
+      setError('Failed to Log In')
     }
 
     setLoading(false)
@@ -42,8 +40,9 @@ const Signup = () => {
   return (
     <Box p={8} maxWidth='500px' borderWidth={1} borderRadius={8} boxShadow='lg'>
       <Box textAlign='center'>
-        <Heading>Sign Up</Heading>
+        <Heading>Log In</Heading>
       </Box>
+      {/* {currentUser && currentUser.email} */}
       {error && (
         <Alert status='error' my={3}>
           {error}
@@ -59,14 +58,7 @@ const Signup = () => {
             <FormLabel>Password</FormLabel>
             <Input ref={passwordRef} type='password' placeholder='*******' />
           </FormControl>
-          <FormControl id='password-confirm' mt={6} isRequired>
-            <FormLabel>Confirm Password</FormLabel>
-            <Input
-              ref={passwordConfirmRef}
-              type='password'
-              placeholder='*******'
-            />
-          </FormControl>
+
           <Button
             disabled={loading}
             type='submit'
@@ -75,13 +67,13 @@ const Signup = () => {
             width='full'
             mt={4}
           >
-            Sign Up
+            Log In
           </Button>
         </form>
       </Box>
-      Already have an account? <Link to='/login'>Log In</Link>
+      Need an account? <Link to='/signup'>Sign Up</Link>
     </Box>
   )
 }
 
-export default Signup
+export default Login

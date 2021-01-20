@@ -1,16 +1,29 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import { Flex } from '@chakra-ui/react'
+import Dashboard from './Dashboard'
 import Signup from './Signup'
+import Login from './Login'
+import { AuthProvider } from '../contexts/AuthContext'
 
 function App() {
   return (
     <Flex
       w='full'
-      height='100vh'
+      minHeight='100vh'
       align='center'
       justifyContent='center'
       alignContent='center'
     >
-      <Signup />
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <Route path='/' exact component={Dashboard} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/login' component={Login} />
+          </Switch>
+        </AuthProvider>
+      </Router>
     </Flex>
   )
 }

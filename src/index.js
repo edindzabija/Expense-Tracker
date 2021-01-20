@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom'
 import App from './components/App'
 import reportWebVitals from './reportWebVitals'
 import { ChakraProvider } from '@chakra-ui/react'
-import { AuthProvider } from './contexts/AuthContext'
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <ChakraProvider>
-        <App />
-      </ChakraProvider>
-    </AuthProvider>
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
