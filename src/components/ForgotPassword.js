@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import {
   Box,
@@ -11,16 +11,12 @@ import {
   Alert,
 } from '@chakra-ui/react'
 
-const Login = () => {
+function ForgotPassword() {
   const emailRef = useRef()
-  const passwordRef = useRef()
-
-  const { login } = useAuth()
-
+  const { resetPassword } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
-
-  const history = useHistory()
+  const [message, setMessage] = useState('')
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -28,10 +24,10 @@ const Login = () => {
     try {
       setError('')
       setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      history.push('/')
+      await resetPassword(emailRef.current.value)
+      setMessage('Check your inbox for further instructions.')
     } catch {
-      setError('Failed to Log In')
+      setError('Failed to Reset Password')
     }
 
     setLoading(false)
@@ -47,11 +43,16 @@ const Login = () => {
         boxShadow='lg'
       >
         <Box textAlign='center'>
-          <Heading>Log In</Heading>
+          <Heading>Password Reset</Heading>
         </Box>
         {error && (
           <Alert status='error' my={3}>
             {error}
+          </Alert>
+        )}
+        {message && (
+          <Alert status='success' my={3}>
+            {message}
           </Alert>
         )}
         <Box my={4} textAlign='left'>
@@ -59,10 +60,6 @@ const Login = () => {
             <FormControl isRequired id='email'>
               <FormLabel>Email</FormLabel>
               <Input ref={emailRef} type='email' placeholder='test@test.com' />
-            </FormControl>
-            <FormControl id='password' mt={6} isRequired>
-              <FormLabel>Password</FormLabel>
-              <Input ref={passwordRef} type='password' placeholder='*******' />
             </FormControl>
 
             <Button
@@ -73,11 +70,11 @@ const Login = () => {
               width='full'
               mt={4}
             >
-              Log In
+              Reset Password
             </Button>
           </form>
           <Box textAlign='center' mt={5}>
-            <Link to='/forgot-password'>forgot password?</Link>
+            <Link to='/login'>Login</Link>
           </Box>
         </Box>
       </Box>
@@ -88,4 +85,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ForgotPassword

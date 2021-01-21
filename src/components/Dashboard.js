@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { Alert, Box, Button } from '@chakra-ui/react'
+import { Alert, Box, Button, ButtonGroup, Heading } from '@chakra-ui/react'
 import { useAuth } from '../contexts/AuthContext'
 
 const Dashboard = () => {
@@ -22,16 +22,25 @@ const Dashboard = () => {
   return (
     <>
       <Box>
-        <h2>Profile</h2>
+        <Heading as='h4' size='md' my={2} textAlign="center">
+          Profile
+        </Heading>
         {error && (
           <Alert status='error' my={3}>
             {error}
           </Alert>
         )}
-        <strong>Email: </strong>
-        <Link to='/update-profile'>Update Profile</Link>
-        {currentUser.email}
-        <Button onClick={handleLogout}>Log Out</Button>
+        <Box>
+          <strong>Email: </strong>
+          {currentUser.email}
+        </Box>
+        <ButtonGroup my={2}>
+          <Button>
+            <Link to='/update-profile'>Update Profile</Link>
+          </Button>
+
+          <Button onClick={handleLogout}>Log Out</Button>
+        </ButtonGroup>
       </Box>
     </>
   )

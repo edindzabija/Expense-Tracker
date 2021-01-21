@@ -40,47 +40,57 @@ const Signup = () => {
   }
 
   return (
-    <Box p={8} maxWidth='500px' borderWidth={1} borderRadius={8} boxShadow='lg'>
-      <Box textAlign='center'>
-        <Heading>Sign Up</Heading>
+    <>
+      <Box
+        p={8}
+        maxWidth='500px'
+        borderWidth={1}
+        borderRadius={8}
+        boxShadow='lg'
+      >
+        <Box textAlign='center'>
+          <Heading>Sign Up</Heading>
+        </Box>
+        {error && (
+          <Alert status='error' my={3}>
+            {error}
+          </Alert>
+        )}
+        <Box my={4} textAlign='left'>
+          <form onSubmit={handleSubmit}>
+            <FormControl isRequired id='email'>
+              <FormLabel>Email</FormLabel>
+              <Input ref={emailRef} type='email' placeholder='test@test.com' />
+            </FormControl>
+            <FormControl id='password' mt={6} isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input ref={passwordRef} type='password' placeholder='*******' />
+            </FormControl>
+            <FormControl id='password-confirm' mt={6} isRequired>
+              <FormLabel>Confirm Password</FormLabel>
+              <Input
+                ref={passwordConfirmRef}
+                type='password'
+                placeholder='*******'
+              />
+            </FormControl>
+            <Button
+              disabled={loading}
+              type='submit'
+              colorScheme='teal'
+              variant='outline'
+              width='full'
+              mt={4}
+            >
+              Sign Up
+            </Button>
+          </form>
+        </Box>
       </Box>
-      {error && (
-        <Alert status='error' my={3}>
-          {error}
-        </Alert>
-      )}
-      <Box my={4} textAlign='left'>
-        <form onSubmit={handleSubmit}>
-          <FormControl isRequired id='email'>
-            <FormLabel>Email</FormLabel>
-            <Input ref={emailRef} type='email' placeholder='test@test.com' />
-          </FormControl>
-          <FormControl id='password' mt={6} isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input ref={passwordRef} type='password' placeholder='*******' />
-          </FormControl>
-          <FormControl id='password-confirm' mt={6} isRequired>
-            <FormLabel>Confirm Password</FormLabel>
-            <Input
-              ref={passwordConfirmRef}
-              type='password'
-              placeholder='*******'
-            />
-          </FormControl>
-          <Button
-            disabled={loading}
-            type='submit'
-            colorScheme='teal'
-            variant='outline'
-            width='full'
-            mt={4}
-          >
-            Sign Up
-          </Button>
-        </form>
+      <Box textAlign='center' mt={2}>
+        Already have an account? <Link to='/login'>Log In</Link>
       </Box>
-      Already have an account? <Link to='/login'>Log In</Link>
-    </Box>
+    </>
   )
 }
 
