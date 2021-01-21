@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { Alert, Box, Button, ButtonGroup, Heading } from '@chakra-ui/react'
 import { useAuth } from '../contexts/AuthContext'
+import { Button, ButtonGroup } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 
 const Dashboard = () => {
   const [error, setError] = useState('')
@@ -20,29 +21,22 @@ const Dashboard = () => {
   }
 
   return (
-    <>
-      <Box>
-        <Heading as='h4' size='md' my={2} textAlign="center">
-          Profile
-        </Heading>
-        {error && (
-          <Alert status='error' my={3}>
-            {error}
-          </Alert>
-        )}
-        <Box>
-          <strong>Email: </strong>
-          {currentUser.email}
-        </Box>
-        <ButtonGroup my={2}>
-          <Button>
-            <Link to='/update-profile'>Update Profile</Link>
-          </Button>
+    <div>
+      <strong>Email: </strong>
+      {currentUser.email}
+      {error && (
+        <Alert severity='error' my={3}>
+          {error}
+        </Alert>
+      )}
+      <ButtonGroup my={2}>
+        <Button>
+          <Link to='/update-profile'>Update Profile</Link>
+        </Button>
 
-          <Button onClick={handleLogout}>Log Out</Button>
-        </ButtonGroup>
-      </Box>
-    </>
+        <Button onClick={handleLogout}>Log Out</Button>
+      </ButtonGroup>
+    </div>
   )
 }
 

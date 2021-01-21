@@ -1,36 +1,29 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import { Flex } from '@chakra-ui/react'
 import Dashboard from './Dashboard'
-import Signup from './Signup'
-import Login from './Login'
-import ForgotPassword from './ForgotPassword'
-import UpdateProfile from './UpdateProfile'
+import RegisterScreen from '../Screens/RegisterScreen'
+import LoginScreen from '../Screens/LoginScreen'
+import ResetPasswordScreen from '../Screens/ResetPasswordScreen'
+import UpdateProfileScreen from '../Screens/UpdateProfileScreen'
 import { AuthProvider } from '../contexts/AuthContext'
 import PrivateRoute from './PrivateRoute'
 
 function App() {
   return (
-    <Flex
-      w='full'
-      minHeight='100vh'
-      align='center'
-      justifyContent='center'
-      alignContent='center'
-      flexDir='column'
-    >
-      <Router>
-        <AuthProvider>
-          <Switch>
-            <PrivateRoute exact path='/' component={Dashboard} />
-            <PrivateRoute path='/update-profile' component={UpdateProfile} />
-            <Route path='/signup' component={Signup} />
-            <Route path='/login' component={Login} />
-            <Route path='/forgot-password' component={ForgotPassword} />
-          </Switch>
-        </AuthProvider>
-      </Router>
-    </Flex>
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <PrivateRoute exact path='/' component={Dashboard} />
+          <PrivateRoute
+            path='/update-profile'
+            component={UpdateProfileScreen}
+          />
+          <Route path='/signup' component={RegisterScreen} />
+          <Route path='/login' component={LoginScreen} />
+          <Route path='/forgot-password' component={ResetPasswordScreen} />
+        </Switch>
+      </AuthProvider>
+    </Router>
   )
 }
 
