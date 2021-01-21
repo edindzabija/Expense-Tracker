@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
+import { useHistory } from 'react-router-dom'
 
 import {
   Avatar,
@@ -60,6 +61,8 @@ const RegisterScreen = () => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
+  const history = useHistory()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -71,6 +74,7 @@ const RegisterScreen = () => {
       setError('')
       setLoading(true)
       await signup(emailRef.current.value, passwordRef.current.value)
+      history.push('/')
     } catch {
       setError('Failed to create account!')
     }
