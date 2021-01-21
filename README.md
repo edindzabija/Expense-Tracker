@@ -1,7 +1,7 @@
 # Expense Tracking App
 The goal of this app is to get more experience with firebase and React while creating an useful app.
 
-> The styling is done via chakra ui.
+> The styling is done with material-ui.
 
 Currently the app has:
 - Authentication with email and password
