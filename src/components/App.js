@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Dashboard from './Dashboard'
+import Dashboard from './dashboard/Dashboard'
 import RegisterScreen from '../Screens/RegisterScreen'
 import LoginScreen from '../Screens/LoginScreen'
 import ResetPasswordScreen from '../Screens/ResetPasswordScreen'
