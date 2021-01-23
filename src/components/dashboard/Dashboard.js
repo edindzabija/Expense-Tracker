@@ -151,7 +151,6 @@ export default function Dashboard() {
       setError('Failed to Log Out')
     }
   }
-  console.log(currentUser.displayName)
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -179,7 +178,8 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            {currentUser.displayName && (currentUser.displayName + '`s')} Dashboard
+            {currentUser.displayName && currentUser.displayName + '`s'}{' '}
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -210,18 +210,19 @@ export default function Dashboard() {
                 <Chart />
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Balance Component */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <Balance />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Expenses */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Expenses />
               </Paper>
             </Grid>
+            {/* Incomes */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Incomes />

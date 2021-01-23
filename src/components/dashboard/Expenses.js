@@ -7,17 +7,13 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Title from './Title'
-
+import useFirestore from '../../hooks/useFirestore'
+import { format } from 'date-fns'
+import { fromUnixTime } from 'date-fns'
 // Generate Dummy Expense Data
-function createData(id, date, name, category, note, amount) {
-  return { id, date, name, category, note, amount }
+function createData(id, date, name, category, desc, amount) {
+  return { id, date, name, category, desc, amount }
 }
-
-const rows = [
-  createData(6, '15 Jan, 2021', 'Electricity', 'Household', 'Necesity', 34.0),
-  createData(7, '08 Jan, 2021', 'MacBook Pro', 'Work', 'New Computer', 3312.0),
-  createData(8, '16 Feb, 2019', 'Kirija', 'Household', 'flat', 320.0),
-]
 
 function preventDefault(event) {
   event.preventDefault()
@@ -31,6 +27,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Expenses() {
   const classes = useStyles()
+
+  const { docs } = useFirestore('transactions')
+  console.log('data: ', docs)
+
+  const rows = []
+
+  if (docs) {
+    for (let i = 0; i < docs.length; i++) {
+      const e = docs[i]
+      rows.push(
+        createData(
+          e.id,
+          format(fromUnixTime(e.date.seconds), 'dd MMM yyyy'),
+          e.name,
+          e.category,
+          e.desc,
+          e.amount
+        )
+      )
+    }
+  }
+  // format(e.date[i].seconds, 'yyyy-MM-dd')
   return (
     <React.Fragment>
       <Title>Recent Expenses</Title>
@@ -45,17 +63,15 @@ export default function Expenses() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows
-            .map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.category}</TableCell>
-                <TableCell>{row.note}</TableCell>
-                <TableCell align='right'>-{row.amount} KM</TableCell>
-              </TableRow>
-            ))
-            .slice(0, 2)}
+          {rows.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.date}</TableCell>
+              <TableCell>{row.name}</TableCell>
+              <TableCell>{row.category}</TableCell>
+              <TableCell>{row.desc}</TableCell>
+              <TableCell align='right'>-{row.amount} KM</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
