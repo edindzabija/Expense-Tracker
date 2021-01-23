@@ -138,6 +138,7 @@ export default function Dashboard() {
 
   const [error, setError] = useState('')
   const { currentUser, logout } = useAuth()
+
   const history = useHistory()
 
   const handleLogout = async () => {
@@ -150,7 +151,7 @@ export default function Dashboard() {
       setError('Failed to Log Out')
     }
   }
-
+  console.log(currentUser.displayName)
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -178,7 +179,7 @@ export default function Dashboard() {
             noWrap
             className={classes.title}
           >
-            Dashboard
+            {currentUser.displayName && (currentUser.displayName + '`s')} Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -234,6 +235,7 @@ export default function Dashboard() {
           <Button onClick={handleLogout}>Log Out</Button>
           <span>loged in as: </span>
           {currentUser.email}
+
           {error && (
             <Alert severity='error' my={3}>
               {error}

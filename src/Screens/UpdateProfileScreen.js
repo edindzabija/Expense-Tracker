@@ -14,7 +14,7 @@ import {
   Container,
 } from '@material-ui/core'
 
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { makeStyles } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 
@@ -52,10 +52,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const UpdateProfileScreen = () => {
+  const nameRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
-  const { currentUser, updateEmail, updatePassword } = useAuth()
+  const { currentUser, updateEmail, updatePassword, updateName } = useAuth()
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
   const history = useHistory()
@@ -76,6 +77,9 @@ const UpdateProfileScreen = () => {
     }
     if (passwordRef.current.value) {
       promises.push(updatePassword(passwordRef.current.value))
+    }
+    if (nameRef.current.value) {
+      promises.push(updateName(nameRef.current.value))
     }
 
     Promise.all(promises)
@@ -105,6 +109,20 @@ const UpdateProfileScreen = () => {
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             required
+            id='displayName'
+            variant='outlined'
+            margin='normal'
+            fullWidth
+            label='Display Name'
+            name='displayName'
+            autoFocus
+            inputRef={nameRef}
+            defaultValue={
+              currentUser.displayName ? currentUser.displayName : ''
+            }
+          />
+          <TextField
+            required
             id='email'
             variant='outlined'
             margin='normal'
@@ -112,7 +130,6 @@ const UpdateProfileScreen = () => {
             label='Email Address'
             name='email'
             autoComplete='email'
-            autoFocus
             inputRef={emailRef}
             defaultValue={currentUser.email}
           />

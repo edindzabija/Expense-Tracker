@@ -6,7 +6,7 @@ import LoginScreen from '../screens/LoginScreen'
 import ResetPasswordScreen from '../screens/ResetPasswordScreen'
 import UpdateProfileScreen from '../screens/UpdateProfileScreen'
 import { AuthProvider } from '../contexts/AuthContext'
-import PrivateRoute from './PrivateRoute'
+import PrivateRoute from './util/PrivateRoute'
 
 function App() {
   return (

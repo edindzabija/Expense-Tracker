@@ -14,9 +14,9 @@ function createData(id, date, name, category, note, amount) {
 }
 
 const rows = [
-  createData(0, '15 Jan, 2021', 'Electricity', 'Household', 'Necesity', 34.0),
-  createData(0, '08 Jan, 2021', 'MacBook Pro', 'Work', 'New Computer', 3312.0),
-  createData(0, '16 Feb, 2019', 'Kirija', 'Household', 'flat', 320.0),
+  createData(6, '15 Jan, 2021', 'Electricity', 'Household', 'Necesity', 34.0),
+  createData(7, '08 Jan, 2021', 'MacBook Pro', 'Work', 'New Computer', 3312.0),
+  createData(8, '16 Feb, 2019', 'Kirija', 'Household', 'flat', 320.0),
 ]
 
 function preventDefault(event) {
