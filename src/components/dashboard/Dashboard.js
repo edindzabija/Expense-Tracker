@@ -5,6 +5,7 @@ import {
   CssBaseline,
   Drawer,
   Box,
+  Button,
   AppBar,
   Toolbar,
   List,
@@ -16,7 +17,8 @@ import {
   Paper,
   Link,
 } from '@material-ui/core'
-
+import { Alert } from '@material-ui/lab'
+import { useHistory } from 'react-router-dom'
 import MenuIcon from '@material-ui/icons/Menu'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
@@ -25,6 +27,8 @@ import Chart from './Chart'
 import Balance from './Balance'
 import Expenses from './Expenses'
 import Incomes from './Incomes'
+
+import { useAuth } from '../../contexts/AuthContext'
 
 function Copyright() {
   return (
@@ -132,6 +136,21 @@ export default function Dashboard() {
   }
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
+  const [error, setError] = useState('')
+  const { currentUser, logout } = useAuth()
+  const history = useHistory()
+
+  const handleLogout = async () => {
+    setError('')
+
+    try {
+      await logout()
+      history.push('/login')
+    } catch {
+      setError('Failed to Log Out')
+    }
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -211,6 +230,15 @@ export default function Dashboard() {
           <Box pt={4}>
             <Copyright />
           </Box>
+          {/* temp logout button */}
+          <Button onClick={handleLogout}>Log Out</Button>
+          <span>loged in as: </span>
+          {currentUser.email}
+          {error && (
+            <Alert severity='error' my={3}>
+              {error}
+            </Alert>
+          )}
         </Container>
       </main>
     </div>

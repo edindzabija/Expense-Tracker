@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Dashboard from './dashboard/Dashboard'
-import RegisterScreen from '../Screens/RegisterScreen'
-import LoginScreen from '../Screens/LoginScreen'
-import ResetPasswordScreen from '../Screens/ResetPasswordScreen'
-import UpdateProfileScreen from '../Screens/UpdateProfileScreen'
+import RegisterScreen from '../screens/RegisterScreen'
+import LoginScreen from '../screens/LoginScreen'
+import ResetPasswordScreen from '../screens/ResetPasswordScreen'
+import UpdateProfileScreen from '../screens/UpdateProfileScreen'
 import { AuthProvider } from '../contexts/AuthContext'
 import PrivateRoute from './PrivateRoute'
 
